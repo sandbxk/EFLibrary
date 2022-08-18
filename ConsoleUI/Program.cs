@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using System.Runtime.CompilerServices;
+using Entities;
 using infrastructure;
 
 var libraryRepository = new LibraryRepository();
@@ -15,12 +16,19 @@ void PresentOptions()
     Console.WriteLine("5: Create a new author");
     Console.WriteLine("6: Delete an author and their books");
     Console.WriteLine("7: Rebuild DB (useful in case of schema changes)");
+    Console.WriteLine();
+    Console.WriteLine("8: List all ");
 }
 
 void PickOption()
 {
     var input = Console.ReadLine();
-    if (input.Equals("1"))
+    if (input.Equals("exit"))
+    {
+        Console.WriteLine("Program has ended");
+        Environment.Exit(0);
+    }
+    else if (input.Equals("1"))
     {
         ListAllBooks();
     } else if (input.Equals("2"))

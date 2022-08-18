@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace infrastructure;
@@ -22,10 +23,11 @@ public class DbContext: Microsoft.EntityFrameworkCore.DbContext
             .HasOne(book => book.Author)
             .WithMany(author => author.Books)
             .HasForeignKey(book => book.AuthorId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade); 
         //Don't auto include author on query
         modelBuilder.Entity<Book>()
             .Ignore(b => b.Author);
+        
         
         //AUTHOR MODEL BUILDER
         //Auto generate ID
@@ -33,9 +35,21 @@ public class DbContext: Microsoft.EntityFrameworkCore.DbContext
             .Property(f => f.Id)
             .ValueGeneratedOnAdd();
         
+        modelBuilder.
+
+        
+        modelBuilder.Entity<Person>()
+            .Property(f => f.Id)
+            .ValueGeneratedOnAdd();
+        
+
+
+
     }
     
     //Mapping to entity classes
     public DbSet<Author> Author { get; set; }
     public DbSet<Book> Book { get; set; }
+    
+    public DbSet<Person> Person { get; set; }
 }
