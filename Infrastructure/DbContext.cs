@@ -32,10 +32,15 @@ public class DbContext: Microsoft.EntityFrameworkCore.DbContext
         modelBuilder.Entity<Author>()
             .Property(f => f.Id)
             .ValueGeneratedOnAdd();
-        
+        modelBuilder.Entity<Student>()
+            .Property(f => f.Id)
+            .ValueGeneratedOnAdd();
+
     }
     
     //Mapping to entity classes
     public DbSet<Author> Author { get; set; }
     public DbSet<Book> Book { get; set; }
+    
+    public DbSet<Student> Student { get; set; }
 }

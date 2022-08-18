@@ -17,10 +17,13 @@ public class LibraryRepository
 
     public Book InsertBook(Book book)
     {
-        using var context = new DbContext(_opts, ServiceLifetime.Scoped);
-        context.Book.Add(book);
-        context.SaveChanges();
-        return book;
+        using( var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            context.Book.Add(book);
+            context.SaveChanges();
+            return book;
+        }
+        
     }
 
     public List<Book> SelectAllBooks()
@@ -34,7 +37,7 @@ public class LibraryRepository
     {
         using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
         {
-            var obj = new Book { Id = id };
+            Book obj = new Book { Id = id };
             context.Book.Remove(obj);
             context.SaveChanges();
             return obj;
@@ -158,6 +161,19 @@ public class LibraryRepository
         using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
         {
             return context.Author.Include(a => a.Books).ToList();
+        }
+    }
+
+    public List<Book> CustomQuery()
+    {
+        using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            var result = from b in context.Book
+                where b.Id > 2 
+                      && b.AuthorId < 10
+                      && EF.Functions.Like(b.Author.Name, "%Bob%")
+                select b;
+            return result.ToList();
         }
     }
 }
