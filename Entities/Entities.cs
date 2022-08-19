@@ -2,23 +2,40 @@
 
 public class Book
 {
-    public int? Id { get; set; }
-    public int? Pages { get; set; }
-    public string? Title { get; set; }
-    public virtual Author? Author { get; set; }
-    public int? AuthorId { get; set; }
+    public int BookId { get; set; }
+    public string Title { get; set; }
+    public Author Author { get; set; }
+    
+    public List<BookCategory> BookCategories { get; set; }
+    public List<Category> Categories { get; set; }
+    public int AuthorId { get; set; }
 }
 
 public class Author
 {
-    public int? Id { get; set; }
-    public string? Name { get; set; }
-    public ICollection<Book>? Books { get; set; }
+    public int AuthorId { get; set; }
+    public string Name { get; set; }
+    public List<Book> Books { get; set; }
+    
     
 }
 
-public class Student
+//One book can have many categories and one category can contain many books
+public class Category
 {
+    public int CategoryId { get; set; }
+    
+    public string CategoryName { get; set; }
+    public List<BookCategory> BookCategories { get; set; }
+    public List<Book> Books { get; set; }
 
-    public int Id { get; set; }
+}
+
+//The join table for the many-to-many join
+public class BookCategory
+{
+    public int BookId { get; set; }
+    public Book Book { get; set; }
+    public int CategoryId { get; set; }
+    public Category Category { get; set; }
 }

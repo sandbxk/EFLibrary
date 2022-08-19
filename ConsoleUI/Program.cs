@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using System.Text.Json;
+using Entities;
 using infrastructure;
 
 var libraryRepository = new LibraryRepository();
@@ -6,6 +7,7 @@ var libraryRepository = new LibraryRepository();
 UI();
 
 #region UI Functions
+
 void PresentOptions()
 {
     Console.WriteLine("1: List all books");
@@ -15,6 +17,8 @@ void PresentOptions()
     Console.WriteLine("5: Create a new author");
     Console.WriteLine("6: Delete an author and their books");
     Console.WriteLine("7: Rebuild DB (useful in case of schema changes)");
+    Console.WriteLine("8: Create new category");
+    Console.WriteLine("9: Add existing book to category");
 }
 
 void PickOption()
@@ -23,34 +27,47 @@ void PickOption()
     if (input.Equals("1"))
     {
         ListAllBooks();
-    } else if (input.Equals("2"))
+    }
+    else if (input.Equals("2"))
     {
         InsertBook();
-    } else if (input.Equals("3"))
+    }
+    else if (input.Equals("3"))
     {
         RemoveBook();
-    } else if (input.Equals("4"))
+    }
+    else if (input.Equals("4"))
     {
         ListAllAuthors();
-    } else if (input.Equals("5"))
+    }
+    else if (input.Equals("5"))
     {
         InsertAuthor();
-    } else if (input.Equals("6"))
+    }
+    else if (input.Equals("6"))
     {
         DeleteAuthorAndTheirBooks();
-    } else if (input.Equals("7"))
+    }
+    else if (input.Equals("7"))
     {
         RebuildDB();
     }
-
+    else if (input.Equals("8"))
+    {
+        CreateNewCategory();
+    }
+    else if (input.Equals("9"))
+    {
+        AddExistingBookToCategory();
+    }
 }
 
 void UI()
 {
     PresentOptions();
-    Console.WriteLine();//Whitespace
+    Console.WriteLine(); //Whitespace
     PickOption();
-    Console.WriteLine();//Whitespace
+    Console.WriteLine(); //Whitespace
     UI();
 }
 
@@ -61,9 +78,9 @@ void UI()
 
 void ListAllBooks()
 {
-    foreach (Book book in libraryRepository.SelectAllBooks())
+    foreach (object book in libraryRepository.SelectAllBooks())
     {
-        Console.WriteLine("Book number "+book.Id+": "+book.Title);
+        Console.WriteLine(JsonSerializer.Serialize(book));
     }
 }
 
@@ -77,9 +94,27 @@ void InsertBook()
     ListAllAuthors();
     int authorId = Int32.Parse(Console.ReadLine());
     book.AuthorId = authorId;
-    libraryRepository.InsertBook(book);
+        book = libraryRepository.InsertBook(book);
+    Console.WriteLine("ID of book category?");
+    ListAllCategories();
+    int categoryId = Int32.Parse(Console.ReadLine());
+    var bookCategory = new BookCategory()
+    {
+        BookId = book.BookId,
+        CategoryId = categoryId
+    };
+    libraryRepository.AddBookToCategory(bookCategory);
+
     Console.WriteLine("Insertion complete");
-    
+}
+
+
+void ListAllCategories()
+{
+    foreach (Category category in libraryRepository.GetAllCategories())
+    {
+        Console.WriteLine(category.CategoryId + ": " + category.CategoryName); 
+    }
 }
 
 void RemoveBook()
@@ -95,7 +130,7 @@ void ListAllAuthors()
 {
     foreach (Author author in libraryRepository.GetAuthors())
     {
-        Console.WriteLine("Author number: "+author.Id+": "+author.Name);
+        Console.WriteLine("Author number: " + author.AuthorId + ": " + author.Name);
     }
 }
 
@@ -118,6 +153,35 @@ void DeleteAuthorAndTheirBooks()
     int id = Int32.Parse(Console.ReadLine());
     libraryRepository.DeleteAuthor(id);
     Console.WriteLine("Deletion complete");
+}
+
+void CreateNewCategory()
+{
+    Console.WriteLine("Name of Category?");
+    var name = Console.ReadLine();
+    var category = new Category()
+    {
+        CategoryName = name
+    };
+    libraryRepository.InsertCategory(category);
+    Console.WriteLine("Insertion complete");
+}
+
+void AddExistingBookToCategory()
+{
+    Console.WriteLine("ID of book?");
+    ListAllBooks();
+    var bookId = Int32.Parse(Console.ReadLine());
+    Console.WriteLine("ID of category?");
+    ListAllCategories();
+    var categoryId = Int32.Parse(Console.ReadLine());
+    var joinItem = new BookCategory()
+    {
+        CategoryId = categoryId,
+        BookId = bookId
+    };
+    libraryRepository.AddBookToCategory(joinItem);
+    Console.WriteLine("Added to category");
 }
 
 void RebuildDB()
