@@ -241,4 +241,67 @@ public class LibraryRepository
             context.Database.ExecuteSqlRaw("INSERT INTO BookTable (Title, AuthorId) VALUES ('Book', 'Author');");
         }
     }
+
+    public List<Person> GetAllPersons()
+    {
+        using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            return context.PersonTable.ToList();
+        }
+    }
+
+    public void InsertPerson(Person person)
+    {
+        using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            context.Add(person);
+        }
+    }
+    
+    public void DeletePerson(Person person)
+    {
+        using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            context.Remove(person);
+        }
+    }
+    
+    public void UpdatePerson(Person person)
+    {
+        using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            context.Update(person);
+        }
+    }
+
+    public Person GetPerson(Person person)
+    {
+        using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            return context.Find<Person>(person);
+        }
+    }
+
+    public List<Book> SelectAllBooksBorrowedBy(Person person)
+    {
+        using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            var books = context.BookTable.ToList();
+            foreach (var book in books)
+            {
+                var j = context.BorrowedBooksTable.Where(j => j.BookID == book.BookId).ToList();
+                List<Person> categories = new List<Person>() { };
+                foreach (var bookCategory in j)
+                {
+                    categories.Add(context.CategoryTable.Find(bookCategory.CategoryId));
+                }
+
+                book.Categories = categories;
+            }
+            return books;
+        }
+    }
+    
+    
+
 }

@@ -8,6 +8,8 @@ public class Book
     
     public List<BookCategory> BookCategories { get; set; }
     public List<Category> Categories { get; set; }
+    public List<BorrowedBooks>? Borrowers { get; set; }
+    
     public int AuthorId { get; set; }
 }
 
@@ -35,6 +37,7 @@ public class BookCategory
 public class Author
 {
     public int AuthorId { get; set; }
+    
     public string Name { get; set; }
     public List<Book> Books { get; set; }
     
@@ -43,7 +46,21 @@ public class Author
 public class Person
 {
     public int? Id { get; set; }
-    
     public string? Name { get; set; }
-    public ICollection<Book>? BorrowedBooks { get; set; }
+    public List<BorrowedBooks>? Books { get; set; }
+
+    public override string ToString()
+    {
+        return "[+" + Id + "] " + Name;
+    }
+}
+
+public class BorrowedBooks
+{
+    public int BookID { get; set; }
+    public Book Book { get; set; }
+    public int PersonID { get; set; }
+    public Person Person { get; set; }
+    
+    
 }

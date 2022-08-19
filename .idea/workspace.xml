@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6919c892-3b41-4483-b50f-ab7c13b84cac" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/ConsoleUI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConsoleUI/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b5a7af4a-d6e2-4f8c-ad27-31f82ad5a146.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b5a7af4a-d6e2-4f8c-ad27-31f82ad5a146.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleUI/ConsoleUI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ConsoleUI/ConsoleUI.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entities/Entities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Entities.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Infrastructure/DbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/DbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/db.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/db.db-shm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/db.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/db.db-wal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/LibraryRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/LibraryRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/db.db" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/db.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/db.db-shm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/db.db-wal" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,13 +25,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/rouge"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/rouge&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
 </project>

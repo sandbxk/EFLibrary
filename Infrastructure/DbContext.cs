@@ -71,13 +71,55 @@ public class DbContext : Microsoft.EntityFrameworkCore.DbContext
         modelBuilder.Entity<BookCategory>()
             .Ignore(bc => bc.Book);
 
+        modelBuilder.Entity<Person>()
+            .HasKey(person => person.Id);
+        modelBuilder.Entity<Person>();
+        
+        modelBuilder.Entity<BorrowedBooks>()
+            .HasOne(p => p.Person)
+            .WithMany(b => b.Books);
+        modelBuilder.Entity<BorrowedBooks>()
+            .HasOne(b => b.Book)
+            .WithMany(bo => bo.Borrowers);
+        
+        
+        modelBuilder.Entity<Person>()
+            .Property(f => f.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<Person>()
+            .HasKey(f => f.Id);
+        
+        modelBuilder.Entity<BorrowedBooks>()
+            .HasKey(a => new { a.BookID, a.PersonID });
+
+        modelBuilder.Entity<Person>()
+            .HasIndex(b => b.Name);
+
+        modelBuilder.Entity<Person>()
+            .Property(b => b.Name)
+            .HasColumnType("TEXT")
+            .IsUnicode(true)
+            .IsRequired(true)
+            .HasMaxLength(20);
+
+        modelBuilder.Entity<BorrowedBooks>()
+            .Ignore(bb => bb.Book);
+        modelBuilder.Entity<BorrowedBooks>()
+            .Ignore(bb => bb.Person);
+
+        
+
     }
 
     //Mapping to entity classes
     public DbSet<Author> AuthorTable { get; set; }
     public DbSet<Book> BookTable { get; set; }
     public DbSet<Category> CategoryTable { get; set; }
-    
     public DbSet<BookCategory> BookCategoryJoinTable { get; set; }
+    
+    public DbSet<BorrowedBooks> BorrowedBooksTable { get; set; }
+    
+    public DbSet<Person> PersonTable { get; set; }
 
 }
