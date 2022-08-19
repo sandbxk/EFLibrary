@@ -11,16 +11,8 @@ public class Book
     public int AuthorId { get; set; }
 }
 
-public class Author
-{
-    public int AuthorId { get; set; }
-    public string Name { get; set; }
-    public List<Book> Books { get; set; }
-    
-    
-}
-
-//One book can have many categories and one category can contain many books
+//One book can have many categories and
+//one category can contain many books
 public class Category
 {
     public int CategoryId { get; set; }
@@ -38,4 +30,13 @@ public class BookCategory
     public Book Book { get; set; }
     public int CategoryId { get; set; }
     public Category Category { get; set; }
+}
+
+public class Author
+{
+    public int AuthorId { get; set; }
+    public string Name { get; set; }
+    public List<Book> Books { get; set; }
+    
+    
 }

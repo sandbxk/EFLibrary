@@ -78,9 +78,9 @@ void UI()
 
 void ListAllBooks()
 {
-    foreach (object book in libraryRepository.SelectAllBooks())
+    foreach (Book book in libraryRepository.SelectAllBooks())
     {
-        Console.WriteLine(JsonSerializer.Serialize(book));
+        Console.WriteLine(book.BookId+": "+book.Title);
     }
 }
 

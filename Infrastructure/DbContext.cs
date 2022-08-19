@@ -22,11 +22,22 @@ public class DbContext : Microsoft.EntityFrameworkCore.DbContext
         modelBuilder.Entity<Category>()
             .Property(f => f.CategoryId)
             .ValueGeneratedOnAdd();
+        
         modelBuilder.Entity<Category>()
             .HasKey(f => f.CategoryId);
+        
         modelBuilder.Entity<BookCategory>()
             .HasKey(a => new { a.CategoryId, a.BookId });
 
+        modelBuilder.Entity<Book>()
+            .HasIndex(b => b.Title);
+
+        modelBuilder.Entity<Book>()
+            .Property(b => b.Title)
+            .HasColumnType("TEXT")
+            .IsUnicode(true)
+            .IsRequired(true)
+            .HasMaxLength(20);
 
 
         //Foregin key to author ID
@@ -39,10 +50,12 @@ public class DbContext : Microsoft.EntityFrameworkCore.DbContext
         //Many-to-many relation
         modelBuilder.Entity<Book>()
             .HasMany(a => a.BookCategories)
-            .WithOne(b => b.Book);
+            .WithOne(b => b.Book)
+            .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Category>()
             .HasMany(a => a.BookCategories)
-            .WithOne(b => b.Category);
+            .WithOne(b => b.Category)
+            .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<BookCategory>()
             .HasOne(bc => bc.Book)
             .WithMany(b => b.BookCategories);

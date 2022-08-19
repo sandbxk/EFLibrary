@@ -225,4 +225,20 @@ public class LibraryRepository
             return bookCategory;
         }
     }
+
+    public List<Book> BooksAsSQL()
+    {
+        using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            return context.BookTable.FromSqlRaw("SELECT * FROM TABLE BOOKTABLE; )").ToList();
+        }
+    }
+
+    public void InsertIntoBookTable()
+    {
+        using (var context = new DbContext(_opts, ServiceLifetime.Scoped))
+        {
+            context.Database.ExecuteSqlRaw("INSERT INTO BookTable (Title, AuthorId) VALUES ('Book', 'Author');");
+        }
+    }
 }
